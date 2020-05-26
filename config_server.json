@@ -1,0 +1,63 @@
+{
+  "log": {
+    "access": "/var/log/v2ray/access.log",
+    "error": "/var/log/v2ray/error.log",
+    "loglevel": "warning"
+  },
+  "dns": {
+         "servers": [
+			"https+local://dns.google/dns-query",
+			"8.8.4.4",
+			"https+local://cloudflare-dns.com/dns-query",
+			"1.0.0.1"
+		]
+	},
+  "stats": {},
+  "inbounds": [
+    {
+      "port": 3333,
+      "protocol": "vmess",
+      "settings": {
+        "clients": [
+          {
+            "id": "bee9b971-6db7-4a8a-a099-c3d39b0de089",
+            "alterId": 32
+          }
+        ]
+      },
+      "tag": "in-0",
+      "streamSettings": {
+        "network": "kcp",
+        "security": "none",
+        "kcpSettings": {}
+      }
+    }
+  ],
+  "outbounds": [
+    {
+      "tag": "direct",
+      "protocol": "freedom",
+      "settings": {}
+    },
+    {
+      "tag": "blocked",
+      "protocol": "blackhole",
+      "settings": {}
+    }
+  ],
+  "routing": {
+    "domainStrategy": "AsIs",
+    "rules": [
+      {
+        "type": "field",
+        "ip": [
+          "geoip:private"
+        ],
+        "outboundTag": "blocked"
+      }
+    ]
+  },
+  "policy": {},
+  "reverse": {},
+  "transport": {}
+}
