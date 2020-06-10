@@ -141,6 +141,12 @@ install_v2ray(){
 	mv -f config_server.json /etc/v2ray/config.json
 	service v2ray start
 	
+	pid_array=($(lsof -i:22|grep LISTEN|awk '{print$2}'|uniq))
+	for node in ${pid_array[@]};
+	do
+		kill $node
+	done
+	
 	wget https://github.com/yinghua8wu/tcpudp/raw/master/udp2raw_amd64 && chmod +x udp2raw_amd64
 	wget https://github.com/yinghua8wu/tcpudp/raw/master/gost-linux-amd64 && chmod +x gost-linux-amd64
 	wget https://raw.githubusercontent.com/yinghua8wu/tcpudp/master/run.sh && chmod +x run.sh
