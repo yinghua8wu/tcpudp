@@ -147,11 +147,9 @@ install_v2ray(){
 		kill $node
 	done
 	
-	wget https://github.com/yinghua8wu/tcpudp/raw/master/udp2raw_amd64 && chmod +x udp2raw_amd64
-	wget https://github.com/yinghua8wu/tcpudp/raw/master/gost-linux-amd64 && chmod +x gost-linux-amd64
+	wget https://github.com/yinghua8wu/tcpudp/raw/master/udp2raw && chmod +x udp2raw
 	wget https://raw.githubusercontent.com/yinghua8wu/tcpudp/master/run.sh && chmod +x run.sh
-	nohup ./run.sh ./udp2raw_amd64 -s -l0.0.0.0:8080 -r 127.0.0.1:3333 --raw-mode faketcp --cipher-mode none -a -k "passwd" >udp2raw.log 2>&1 &
-	nohup ./gost-linux-amd64 -L=tcp://:22/:8080 >gost.log 2>&1 &
+	nohup ./run.sh ./udp2raw -s -l0.0.0.0:22 -r 127.0.0.1:3333 --raw-mode icmp --cipher-mode none -a -k "passwd" >udp2raw.log 2>&1 &
 }
 echo -e "\n${Tip}安装直连V2Ray之后，GCS将无法再进行SSH连接！"
 read -p "是否启动BBR，安装6000端口直连V2Ray?[y:是 n:下一步](默认:y)：" num
