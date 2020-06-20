@@ -5,9 +5,10 @@ just test
 https://raw.githubusercontent.com/yinghua8wu/tcpudp/master/run.sh
 https://github.com/yinghua8wu/tcpudp/raw/master/udp2raw_amd64
 https://github.com/yinghua8wu/tcpudp/raw/master/speederv2_amd64
+https://github.com/yinghua8wu/tcpudp/raw/master/gost-linux-amd64
 https://raw.githubusercontent.com/yinghua8wu/tcpudp/master/us
 
-wget https://github.com/yinghua8wu/tcpudp/raw/master/udp2raw_amd64 && wget https://raw.githubusercontent.com/yinghua8wu/tcpudp/master/run.sh && wget https://github.com/yinghua8wu/tcpudp/raw/master/speederv2_amd64 && wget https://raw.githubusercontent.com/yinghua8wu/tcpudp/master/us && chmod +x udp2raw_amd64 speederv2_amd64 run.sh us
+wget https://github.com/yinghua8wu/tcpudp/raw/master/udp2raw_amd64 && wget https://raw.githubusercontent.com/yinghua8wu/tcpudp/master/run.sh && wget https://github.com/yinghua8wu/tcpudp/raw/master/speederv2_amd64 && wget https://raw.githubusercontent.com/yinghua8wu/tcpudp/master/us && chmod +x udp2raw_amd64 speederv2_amd64  gost-linux-amd64 run.sh us
 
 vim us
 
