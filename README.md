@@ -13,7 +13,7 @@ https://github.com/yinghua8wu/tcpudp/raw/master/gost-linux-amd64
 https://raw.githubusercontent.com/yinghua8wu/tcpudp/master/us
 
 
-wget https://raw.githubusercontent.com/yinghua8wu/tcpudp/master/run.sh && wget https://github.com/yinghua8wu/tcpudp/raw/master/udp2raw_amd64 && wget https://github.com/yinghua8wu/tcpudp/raw/master/speederv2_amd64 && https://github.com/yinghua8wu/tcpudp/raw/master/gost-linux-amd64 && chmod +x udp2raw_amd64 speederv2_amd64  gost-linux-amd64 run.sh
+wget https://raw.githubusercontent.com/yinghua8wu/tcpudp/master/run.sh && wget https://github.com/yinghua8wu/tcpudp/raw/master/udp2raw_amd64 && wget https://github.com/yinghua8wu/tcpudp/raw/master/speederv2_amd64 && wget https://github.com/yinghua8wu/tcpudp/raw/master/gost-linux-amd64 && chmod +x udp2raw_amd64 speederv2_amd64  gost-linux-amd64 run.sh
 
 vim us
 
