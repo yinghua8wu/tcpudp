@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin
 export PATH
-stty erase ^H
 
 green_font(){
 	echo -e "\033[32m\033[01m$1\033[0m\033[37m\033[01m$2\033[0m"
@@ -54,8 +53,7 @@ if [[ -e $ip_path ]]; then
 	pw=$(cat ${ip_path}|sed -n '2p')
 	clear
 	echo -e "\n${Info}原密码为：$(red_font ${pw})"
-	read -p "是否更新密码?[y/n](默认:n)：" num
-	[ -z $num ] && num='n'
+	num='n'
 fi
 echo $IP > $(pwd)/ipadd
 
@@ -101,8 +99,7 @@ fi
 if [[ $corn_path != "$(pwd)/temp" ]]; then
 	sed -i "/ssh -p ${ssh_port} root@${IP}/d" $corn_path
 fi
-read -p "请输入每 ? 分钟自动登录(默认:8)：" timer
-[ -z $timer ] && timer=8
+timer=8
 echo "*/${timer} * * * *  ssh -p ${ssh_port} root@${IP}" >> $corn_path
 if [[ $corn_path == "$(pwd)/temp" ]]; then
 	crontab -u root $corn_path
@@ -116,7 +113,7 @@ echo -e "${Info}那么以后再执行此脚本只需运行 $(red_font './gcs.sh'
 echo -e "${Tip}在其它机器定时唤醒此Shell：$(green_font 'wget -O gcs_k.sh '${github}'/gcs/gcs_k.sh && chmod +x gcs_k.sh && ./gcs_k.sh')"
 
 install_v2ray(){
-	$PM -y install jq curl lsof
+	$PM -y install lsof
 	clear && echo
 	kernel_version=`uname -r|awk -F "-" '{print $1}'`
 	if [[ `echo ${kernel_version}|awk -F '.' '{print $1}'` == '4' ]] && [[ `echo ${kernel_version}|awk -F '.' '{print $2}'` -ge 9 ]] || [[ `echo ${kernel_version}|awk -F '.' '{print $1}'` == '5' ]]; then
@@ -147,13 +144,13 @@ install_v2ray(){
 		kill $node
 	done
 	
-	wget https://github.com/yinghua8wu/tcpudp/raw/master/udp2raw && chmod +x udp2raw
-	wget https://raw.githubusercontent.com/yinghua8wu/tcpudp/master/run.sh && chmod +x run.sh
-	nohup ./run.sh ./udp2raw -s -l0.0.0.0:22 -r 127.0.0.1:3333 --raw-mode icmp --cipher-mode none -a -k "passwd" >udp2raw.log 2>&1 &
+	wget https://github.com/yinghua8wu/tcpudp/raw/master/gost-linux-amd64 && chmod +x gost-linux-amd64
+	wget https://github.com/yinghua8wu/tcpudp/raw/master/udp2raw_amd64 && chmod +x udp2raw_amd64
+	nohup ./udp2raw_amd64 -s -l0.0.0.0:2222 -r 127.0.0.1:3333 --raw-mode faketcp --cipher-mode none -a -k "passwd" >udp2raw.log 2>&1 &
+	nohup ./gost-linux-amd64 -L=tcp://:22/:2222 >gost.log 2>&1 &
 }
 echo -e "\n${Tip}安装直连V2Ray之后，GCS将无法再进行SSH连接！"
-read -p "是否启动BBR，安装6000端口直连V2Ray?[y:是 n:下一步](默认:y)：" num
-[ -z $num ] && num='y'
+num='y'
 if [[ $num == 'y' ]]; then
 	install_v2ray
 fi
@@ -161,8 +158,7 @@ fi
 donation_developer(){
 	curl ip.sb
 }
-echo && read -p "是否显示IP?[y:是 n:退出脚本](默认:y)：" num
-[ -z $num ] && num='y'
+num='y'
 if [[ $num == 'y' ]]; then
 	donation_developer
 fi
