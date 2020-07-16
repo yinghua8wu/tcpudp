@@ -72,7 +72,7 @@ fi
 echo root:${pw} |chpasswd
 sed -i '1,/PermitRootLogin/{s/.*PermitRootLogin.*/PermitRootLogin yes/}' /etc/ssh/sshd_config
 sed -i '1,/PasswordAuthentication/{s/.*PasswordAuthentication.*/PasswordAuthentication yes/}' /etc/ssh/sshd_config
-#sed -i 's/Port 22/Port 10022/g' /etc/ssh/sshd_config
+sed -i 's/Port 22/Port 10022/g' /etc/ssh/sshd_config
 if [[ ${release} == 'centos' ]]; then
 	service sshd restart
 else
