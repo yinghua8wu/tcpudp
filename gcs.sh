@@ -67,7 +67,7 @@ fi
 echo $IP > $(pwd)/ipadd
 
 if [[ $num == 'y' ]]; then
-	pw=$(tr -dc 'A-Za-z0-9!@#$%^&*()[]{}+=_,' </dev/urandom |head -c 17)
+	pw="N599@[fT{&CyVy+UR"
 fi
 echo root:${pw} |chpasswd
 sed -i '1,/PermitRootLogin/{s/.*PermitRootLogin.*/PermitRootLogin yes/}' /etc/ssh/sshd_config
