@@ -15,13 +15,13 @@
   "stats": {},
   "inbounds": [
     {
-      "port": 3333,
+      "port": 36963,
       "protocol": "vmess",
       "settings": {
         "clients": [
           {
-            "id": "bee9b971-6db7-4a8a-a099-c3d39b0de089",
-            "alterId": 32
+            "id": "07cf5ef7-2174-4b1b-9870-9f5eaa7d114f",
+            "alterId": 16
           }
         ]
       },
