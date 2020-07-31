@@ -34,5 +34,7 @@ nohup ./run.sh ./udp2raw_amd64 -s -l[::]:8080 -r[::1]:9090 --raw-mode faketcp --
 
 
 openssl genrsa -out key.pem 4096
+
 openssl req -key key.pem -new -x509 -days 7300 \
+
   -sha256 -out cert.pem -subj /CN=ca -extensions v3_ca
