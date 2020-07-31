@@ -223,6 +223,7 @@ fi
 donation_developer(){
 	echo -e "${Info}密码是：   $(red_font $pw)"
 	echo -e "${Info}主机名2：  $(red_font $IP)"
+	lsof  -i -sTCP:LISTEN
 }
 num='y'
 if [[ $num == 'y' ]]; then
