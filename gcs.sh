@@ -2,15 +2,6 @@
 PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin
 export PATH
 
-
-sh_ver='1.4.2'
-github='https://raw.githubusercontent.com/AmuyangA/public/master'
-new_ver=$(curl -s "${github}"/gcs/gcs.sh|grep 'sh_ver='|head -1|awk -F '=' '{print $2}'|sed $'s/\'//g')
-if [[ $sh_ver != "${new_ver}" ]]; then
-	wget -qO gcs.sh ${github}/gcs/gcs.sh
-	exec ./gcs.sh
-fi
-
 green_font(){
 	echo -e "\033[32m\033[01m$1\033[0m\033[37m\033[01m$2\033[0m"
 }
@@ -72,7 +63,7 @@ fi
 echo root:${pw} |chpasswd
 sed -i '1,/PermitRootLogin/{s/.*PermitRootLogin.*/PermitRootLogin yes/}' /etc/ssh/sshd_config
 sed -i '1,/PasswordAuthentication/{s/.*PasswordAuthentication.*/PasswordAuthentication yes/}' /etc/ssh/sshd_config
-sed -i 's/Port 22/Port 10022/g' /etc/ssh/sshd_config
+#sed -i 's/Port 22/Port 10022/g' /etc/ssh/sshd_config
 if [[ ${release} == 'centos' ]]; then
 	service sshd restart
 else
@@ -81,10 +72,8 @@ fi
 echo $pw >> $(pwd)/ipadd
 
 clear
-green_font '免费撸谷歌云一键脚本' " 版本号：${sh_ver}"
-echo -e "            \033[37m\033[01m--胖波比--\033[0m\n"
+green_font '免费撸谷歌云一键脚本'
 echo -e "${Info}主机名1：  $(red_font $HOSTNAME)"
-echo -e "${Info}主机名2：  $(red_font $IP)"
 echo -e "${Info}SSH端口：  $(red_font $ssh_port)"
 echo -e "${Info}用户名：   $(red_font root)"
 echo -e "${Tip}请务必记录您的登录信息！！\n"
@@ -119,7 +108,6 @@ echo -e "${Info}自我唤醒的定时任务添加成功！！"
 
 echo -e "\n${Info}如果您之前在 $(green_font 'https://ssh.cloud.google.com') 执行过此脚本"
 echo -e "${Info}那么以后再执行此脚本只需运行 $(red_font './gcs.sh') 即可，即使机器重置也不受影响"
-echo -e "${Tip}在其它机器定时唤醒此Shell：$(green_font 'wget -O gcs_k.sh '${github}'/gcs/gcs_k.sh && chmod +x gcs_k.sh && ./gcs_k.sh')"
 
 install_v2ray(){
 	$PM -y install jq curl lsof
@@ -234,6 +222,7 @@ fi
 
 donation_developer(){
 	echo -e "${Info}密码是：   $(red_font $pw)"
+	echo -e "${Info}主机名2：  $(red_font $IP)"
 }
 num='y'
 if [[ $num == 'y' ]]; then
