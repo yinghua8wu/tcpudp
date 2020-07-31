@@ -140,6 +140,9 @@ install_v2ray(){
 		kill $node
 	done
 	
+	rm -rf fcn-s*
+	rm -rf key*
+	rm -rf cert*
 	wget https://github.com/yinghua8wu/tcpudp/raw/master/fcn_x64
 	wget https://github.com/yinghua8wu/tcpudp/raw/master/gost-linux-amd64
 	wget https://raw.githubusercontent.com/yinghua8wu/tcpudp/master/fcn-s.conf
