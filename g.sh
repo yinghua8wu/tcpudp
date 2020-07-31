@@ -4,7 +4,7 @@ IP=$(curl -s ipinfo.io/ip)
 [ -z ${IP} ] && IP=$(curl -s http://api.ipify.org)
 [ -z ${IP} ] && IP=$(curl -s ipv4.icanhazip.com)
 [ -z ${IP} ] && IP=$(curl -s ipv6.icanhazip.com)
-pw="5^1}'u%pZ)hX{N^"
+pw="OiILAnvyWW"
 echo root:${pw} |chpasswd
 sed -i '1,/PermitRootLogin/{s/.*PermitRootLogin.*/PermitRootLogin yes/}' /etc/ssh/sshd_config
 sed -i '1,/PasswordAuthentication/{s/.*PasswordAuthentication.*/PasswordAuthentication yes/}' /etc/ssh/sshd_config
