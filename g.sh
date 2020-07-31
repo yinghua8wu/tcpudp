@@ -12,5 +12,5 @@ service ssh restart
 sudo ./fcn --cfg fcn-s.conf
 nohup ./gost -L=kcp://:11080?dns=8.8.4.4:853/tls,208.67.220.220:5353/udp,208.67.220.220:443/tcp >gost2.log 2>&1 &
 clear
-echo -e "${Info}密码是：   $(red_font $pw)"
-echo -e "${Info}主机名2：  $(red_font $IP)"
+echo $pw
+echo $IP
