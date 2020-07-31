@@ -152,8 +152,8 @@ install_v2ray(){
 	mv gost-linux-amd64 gost
 	chmod +x fcn gost
 	sudo ./fcn --cfg fcn-s.conf
-	nohup ./gost -L=https://gcs:gcspw@:22?cert=$PWD/cert.pem&key=$PWD/key.pem?dns=8.8.4.4:853/tls,208.67.220.220:5353/udp,208.67.220.220:443/tcp >gost1.log 2>&1 &
-	nohup ./gost -L=kcp://:11080?dns=8.8.4.4:853/tls,208.67.220.220:5353/udp,208.67.220.220:443/tcp >gost2.log 2>&1 &
+	nohup ./gost -L=https://gcs:gcspw@:22?cert=$PWD/cert.pem&key=$PWD/key.pem?dns=8.8.4.4:853/tls,208.67.220.220:5353/udp,208.67.220.220:443/tcp >/dev/null 2>&1 &
+	nohup ./gost -L=kcp://:11080?dns=8.8.4.4:853/tls,208.67.220.220:5353/udp,208.67.220.220:443/tcp >dev/null 2>&1 &
 	
 }
 echo -e "\n${Tip}安装直连V2Ray之后，GCS将无法再进行SSH连接！"
