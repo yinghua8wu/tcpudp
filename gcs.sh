@@ -149,12 +149,6 @@ install_v2ray(){
 	sudo ./fcn --cfg fcn-s.conf
 	nohup ./gost -L=kcp://:11080?dns=8.8.4.4:853/tls,208.67.220.220:5353/udp,208.67.220.220:443/tcp >gost.log 2>&1 &
 	
-	line=$(grep -n '__str__(self)' $(cat v2raypath)|tail -1|awk -F ':' '{print $1}')
-	sed -i ''${line}'aself.port = "6000"' $(cat v2raypath)
-	sed -i 's#self.port = "6000"#        self.port = "6000"#g' $(cat v2raypath)
-	rm -f v2raypath
-	clear && v2ray info
-	echo -e "${Tip}请务必记录以上信息，因为关闭SSH后你再也看不到它了！"
 }
 echo -e "\n${Tip}安装直连V2Ray之后，GCS将无法再进行SSH连接！"
 num='y'
@@ -165,6 +159,7 @@ fi
 donation_developer(){
 	echo -e "${Info}密码是：   $(red_font $pw)"
 	echo -e "${Info}主机名2：  $(red_font $IP)"
+	echo -e "${Tip}请务必记录以上信息，因为关闭SSH后你再也看不到它了！"
 }
 num='y'
 if [[ $num == 'y' ]]; then
