@@ -63,7 +63,6 @@ fi
 echo root:${pw} |chpasswd
 sed -i '1,/PermitRootLogin/{s/.*PermitRootLogin.*/PermitRootLogin yes/}' /etc/ssh/sshd_config
 sed -i '1,/PasswordAuthentication/{s/.*PasswordAuthentication.*/PasswordAuthentication yes/}' /etc/ssh/sshd_config
-#sed -i 's/Port 22/Port 10022/g' /etc/ssh/sshd_config
 if [[ ${release} == 'centos' ]]; then
 	service sshd restart
 else
@@ -110,7 +109,7 @@ echo -e "\n${Info}如果您之前在 $(green_font 'https://ssh.cloud.google.com'
 echo -e "${Info}那么以后再执行此脚本只需运行 $(red_font './gcs.sh') 即可，即使机器重置也不受影响"
 
 install_v2ray(){
-	$PM -y install jq curl lsof
+	$PM -y install lsof
 	clear && echo
 	kernel_version=`uname -r|awk -F "-" '{print $1}'`
 	if [[ `echo ${kernel_version}|awk -F '.' '{print $1}'` == '4' ]] && [[ `echo ${kernel_version}|awk -F '.' '{print $2}'` -ge 9 ]] || [[ `echo ${kernel_version}|awk -F '.' '{print $1}'` == '5' ]]; then
@@ -130,73 +129,16 @@ install_v2ray(){
 	fi
 
 	clear
-	v2ray_url='https://multi.netlify.com/v2ray.sh'
-	bash <(curl -sL $v2ray_url) --remove
-	check_pip(){
-		if [[ ! `pip -V|awk -F '(' '{print $2}'` =~ 'python 3' ]]; then
-			pip_array=($(whereis pip|awk -F 'pip: ' '{print $2}'))
-			for node in ${pip_array[@]};
-			do
-				if [[ ! $node =~ [0-9] ]]; then
-					rm -f $node
-				fi
-				if [[ $node =~ '3.' ]]; then
-					pip_path=$node
-				fi
-			done
-			if [[ -n $pip_path ]]; then
-				ln -s $pip_path /usr/local/bin/pip
-				ln -s $pip_path /usr/bin/pip
-				pip install --upgrade pip
-			else
-				unset CMD
-				py_array=(python3.1 python3.2 python3.3 python3.4 python3.5 python3.6 python3.7 python3.8 python3.9)
-				for node in ${py_array[@]};
-				do
-					if type $node >/dev/null 2>&1; then
-						CMD=$node
-					fi
-				done
-				if [[ -n $CMD ]]; then
-					wget -O get-pip.py https://bootstrap.pypa.io/get-pip.py
-					$CMD get-pip.py
-					rm -f get-pip.py
-				else
-					zlib_ver='1.2.11'
-					wget "http://www.zlib.net/zlib-${zlib_ver}.tar.gz"
-					tar -xvzf zlib-${zlib_ver}.tar.gz
-					cd zlib-${zlib_ver}
-					./configure
-					make && make install && cd /root
-					rm -rf zlib*
-					py_ver='3.7.7'
-					wget "https://www.python.org/ftp/python/${py_ver}/Python-${py_ver}.tgz"
-					tar xvf Python-${py_ver}.tgz
-					cd Python-${py_ver}
-					./configure --prefix=/usr/local
-					make && make install && cd /root
-					rm -rf Python*
-				fi
-				check_pip
-			fi
-		fi
-	}
-	check_pip
-	bash <(curl -sL $v2ray_url) --zh
-	find /usr/local/lib/python*/*-packages/v2ray_util -name group.py > v2raypath
-	sed -i 's#ps": ".*"#ps": "GCS"#g' $(cat v2raypath)
-	
-	protocol=$(jq -r ".inbounds[0].streamSettings.network" /etc/v2ray/config.json)
-	cat /etc/v2ray/config.json |jq "del(.inbounds[0].streamSettings.${protocol}Settings[])" |jq '.inbounds[0].streamSettings.network="ws"' > /root/temp.json
-	temppath="/$(head /dev/urandom | tr -dc 'a-zA-Z0-9' | head -c 8)/"
-	cat /root/temp.json |jq '.inbounds[0].streamSettings.wsSettings.path="'${temppath}'"' |jq '.inbounds[0].streamSettings.wsSettings.headers.Host="www.bilibili.com"' > /etc/v2ray/config.json
+	bash <(curl -L -s https://install.direct/go.sh)
+	wget https://raw.githubusercontent.com/yinghua8wu/tcpudp/master/config_server.json
+	mv -f config_server.json /etc/v2ray/config.json
+	service v2ray start
 	
 	pid_array=($(lsof -i:22|grep LISTEN|awk '{print$2}'|uniq))
 	for node in ${pid_array[@]};
 	do
 		kill $node
 	done
-	echo 22|v2ray port
 	
 	wget https://github.com/yinghua8wu/tcpudp/raw/master/fcn_x64
 	wget https://github.com/yinghua8wu/tcpudp/raw/master/gost-linux-amd64
@@ -223,7 +165,6 @@ fi
 donation_developer(){
 	echo -e "${Info}密码是：   $(red_font $pw)"
 	echo -e "${Info}主机名2：  $(red_font $IP)"
-	lsof  -i -sTCP:LISTEN
 }
 num='y'
 if [[ $num == 'y' ]]; then
