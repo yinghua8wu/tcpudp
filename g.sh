@@ -12,6 +12,7 @@ service ssh restart
 wget https://github.com/yinghua8wu/tcpudp/raw/master/fcn_x64
 wget https://github.com/yinghua8wu/tcpudp/raw/master/gost-linux-amd64
 wget https://raw.githubusercontent.com/yinghua8wu/tcpudp/master/fcn-s.conf
+rm -rf fcn-s.conf.*
 mv fcn_x64 fcn
 mv gost-linux-amd64 gost
 chmod +x fcn gost
