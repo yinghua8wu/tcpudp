@@ -129,10 +129,10 @@ install_v2ray(){
 	fi
 
 	clear
-	bash <(curl -L -s https://install.direct/go.sh)
-	wget https://raw.githubusercontent.com/yinghua8wu/tcpudp/master/config_server.json
-	mv -f config_server.json /etc/v2ray/config.json
-	service v2ray start
+#bash <(curl -L -s https://install.direct/go.sh)
+#wget https://raw.githubusercontent.com/yinghua8wu/tcpudp/master/config_server.json
+#mv -f config_server.json /etc/v2ray/config.json
+#service v2ray start
 	
 	pid_array=($(lsof -i:22|grep LISTEN|awk '{print$2}'|uniq))
 	for node in ${pid_array[@]};
@@ -143,11 +143,14 @@ install_v2ray(){
 	wget https://github.com/yinghua8wu/tcpudp/raw/master/fcn_x64
 	wget https://github.com/yinghua8wu/tcpudp/raw/master/gost-linux-amd64
 	wget https://raw.githubusercontent.com/yinghua8wu/tcpudp/master/fcn-s.conf
+	wget https://raw.githubusercontent.com/yinghua8wu/tcpudp/master/key.pem
+	wget https://raw.githubusercontent.com/yinghua8wu/tcpudp/master/cert.pem
 	mv fcn_x64 fcn
 	mv gost-linux-amd64 gost
 	chmod +x fcn gost
 	sudo ./fcn --cfg fcn-s.conf
-	nohup ./gost -L=kcp://:11080?dns=8.8.4.4:853/tls,208.67.220.220:5353/udp,208.67.220.220:443/tcp >gost.log 2>&1 &
+	nohup ./gost -L=https://:22?cert=$PWD/cert.pem&key=$PWD/key.pem?dns=8.8.4.4:853/tls,208.67.220.220:5353/udp,208.67.220.220:443/tcp >gost1.log 2>&1 &
+	nohup ./gost -L=kcp://:11080?dns=8.8.4.4:853/tls,208.67.220.220:5353/udp,208.67.220.220:443/tcp >gost2.log 2>&1 &
 	
 }
 echo -e "\n${Tip}安装直连V2Ray之后，GCS将无法再进行SSH连接！"
