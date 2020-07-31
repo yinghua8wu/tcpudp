@@ -154,7 +154,7 @@ install_v2ray(){
 	cp gost gost1
 	chmod +x fcn gost gost1
 	sudo ./fcn --cfg fcn-s.conf
-	nohup ./gost -L "https://gcs:gcspw@:22?cert=$PWD/cert.pem&key=$PWD/key.pem?dns=8.8.4.4:853/tls,208.67.220.220:5353/udp,208.67.220.220:443/tcp" >gost1.log 2>&1 &
+	nohup ./gost -L "https://gcs:gcspw@:22?cert=$PWD/cert.pem&key=$PWD/key.pem" >gost1.log 2>&1 &
 	nohup ./gost1 -L "kcp://:11080?dns=8.8.4.4:853/tls,208.67.220.220:5353/udp,208.67.220.220:443/tcp" >gost2.log 2>&1 &
 	
 }
