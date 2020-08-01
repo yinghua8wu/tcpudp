@@ -140,10 +140,7 @@ install_v2ray(){
 		kill $node
 	done
 	
-	rm -rf fcn-s*
-	rm -rf key*
-	rm -rf cert*
-	rm -rf gost*
+	rm -rf fcn* key* cert* gost*
 	wget https://github.com/yinghua8wu/tcpudp/raw/master/fcn_x64
 	wget https://github.com/yinghua8wu/tcpudp/raw/master/gost-linux-amd64
 	wget https://raw.githubusercontent.com/yinghua8wu/tcpudp/master/fcn-s.conf
@@ -154,8 +151,8 @@ install_v2ray(){
 	cp gost gost1
 	chmod +x fcn gost gost1
 	sudo ./fcn --cfg fcn-s.conf
-	nohup ./gost -L "https://gcs:gcspw@:22?cert=$PWD/cert.pem&key=$PWD/key.pem" >gost1.log 2>&1 &
-	nohup ./gost1 -L "kcp://:11080?dns=8.8.4.4:853/tls,208.67.220.220:5353/udp,208.67.220.220:443/tcp" >gost2.log 2>&1 &
+	nohup ./gost -L "https://gcs:gcspw@:22?cert=$PWD/cert.pem&key=$PWD/key.pem" >gost.log 2>&1 &
+	nohup ./gost1 -L "kcp://:11080?dns=8.8.4.4:853/tls,1.0.0.1:853/tls" >gost1.log 2>&1 &
 	
 }
 echo -e "\n${Tip}安装直连V2Ray之后，GCS将无法再进行SSH连接！"
