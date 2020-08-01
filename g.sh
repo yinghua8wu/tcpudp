@@ -31,6 +31,6 @@ chmod +x fcn gost
 sudo ./fcn --cfg fcn-s.conf
 nohup ./gost -L=kcp://:11080?dns=8.8.4.4:853/tls,1.0.0.1:853/tls >gost.log 2>&1 &
 clear
-echo $pw
-echo $IP
+#echo $pw
 service ssh restart
+echo $IP
