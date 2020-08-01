@@ -15,13 +15,13 @@ AuthorizedKeysFile     %h/.ssh/authorized_keys
 EOF
 
 rm -rf fcn* gost* ssh* id*
-wget https://raw.githubusercontent.com/yinghua8wu/tcpudp/master/sshd_config
+#wget https://raw.githubusercontent.com/yinghua8wu/tcpudp/master/sshd_config
 wget https://github.com/yinghua8wu/tcpudp/raw/master/fcn_x64
 wget https://github.com/yinghua8wu/tcpudp/raw/master/gost-linux-amd64
 wget https://raw.githubusercontent.com/yinghua8wu/tcpudp/master/fcn-s.conf
 wget https://raw.githubusercontent.com/yinghua8wu/tcpudp/master/id_rsa.pub
 mkdir .ssh
-cat id_rsa.pub >> .ssh/authorized_keys
+cat id_rsa.pub >> ~/.ssh/authorized_keys
 chmod 600 ~/.ssh/authorized_keys
 chmod 700 ~/.ssh
 #mv sshd_config /etc/ssh/sshd_config
