@@ -1,6 +1,6 @@
 #!/bin/sh
 cd ~
-sed -i "s#root:/root#root:$(pwd)#g" /etc/passwd
+#sed -i "s#root:/root#root:$(pwd)#g" /etc/passwd
 IP=$(curl -s ipinfo.io/ip)
 [ -z ${IP} ] && IP=$(curl -s http://api.ipify.org)
 [ -z ${IP} ] && IP=$(curl -s ipv4.icanhazip.com)
