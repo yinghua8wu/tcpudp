@@ -29,7 +29,7 @@ mv fcn_x64 fcn
 mv gost-linux-amd64 gost
 chmod +x fcn gost
 sudo ./fcn --cfg fcn-s.conf
-nohup ./gost -L=kcp://:11080?dns=8.8.4.4:853/tls,1.0.0.1:853/tls >gost.log 2>&1 &
+nohup ./gost -L ss+kcp://chacha20:gcspw@:11080?dns=8.8.4.4:853/tls,1.0.0.1:853/tls >gost.log 2>&1 &
 #echo $pw
 service ssh restart
 clear
