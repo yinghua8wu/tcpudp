@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #sed -i "s#root:/root#root:$(pwd)#g" /etc/passwd
 IP=$(curl -s ipinfo.io/ip)
 [ -z ${IP} ] && IP=$(curl -s http://api.ipify.org)
