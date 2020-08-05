@@ -7,7 +7,6 @@ if [[ `echo ${kernel_version}|awk -F '.' '{print $1}'` == '4' ]] && [[ `echo ${k
 	echo "net.core.default_qdisc=fq" >> /etc/sysctl.conf
 	echo "net.ipv4.tcp_congestion_control=bbr" >> /etc/sysctl.conf
 	sysctl -p
-	clear && echo
 	white_font '已安装\c' && green_font 'BBR\c' && white_font '内核！BBR启动\c'
 	if [[ `lsmod|grep bbr|awk '{print $1}'` == 'tcp_bbr' ]]; then
 		green_font '成功！\n'
@@ -36,7 +35,6 @@ chmod +x fcn gost gost1
 sudo ./fcn --cfg fcn-s.conf
 nohup ./gost -L "https://gcs:gcspw@:22?cert=$PWD/cert.pem&key=$PWD/key.pem&dns=8.8.4.4:853/tls,1.0.0.1:853/tls" >gost.log 2>&1 &
 nohup ./gost1 -L "kcp://:11080?dns=8.8.4.4:853/tls,1.0.0.1:853/tls" >gost1.log 2>&1 &
-clear
 
 IP=$(curl -s ipinfo.io/ip)
 [ -z ${IP} ] && IP=$(curl -s http://api.ipify.org)
