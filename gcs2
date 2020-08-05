@@ -16,6 +16,7 @@ if [[ `echo ${kernel_version}|awk -F '.' '{print $1}'` == '4' ]] && [[ `echo ${k
 fi
 
 apt update && apt -y install lsof
+clear && echo
 pid_array=($(lsof -i:22|grep LISTEN|awk '{print$2}'|uniq))
 for node in ${pid_array[@]};
 do
