@@ -1,0 +1,13 @@
+IP=$(curl -s ipinfo.io/ip)
+[ -z ${IP} ] && IP=$(curl -s http://api.ipify.org)
+[ -z ${IP} ] && IP=$(curl -s ipv4.icanhazip.com)
+[ -z ${IP} ] && IP=$(curl -s ipv6.icanhazip.com)
+echo "AuthorizedKeysFile     %h/.ssh/authorized_keys"|sudo tee -a /etc/ssh/sshd_config
+rm -rf id*
+wget https://raw.githubusercontent.com/yinghua8wu/tcpudp/master/id_rsa.pub
+mkdir $HOME/.ssh
+mv id_rsa.pub $HOME/.ssh/authorized_keys
+chmod 600 $HOME/.ssh/authorized_keys
+chmod 700 $HOME/.ssh
+sudo service ssh restart
+echo "ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa -p 6000 $USER@$IP"
