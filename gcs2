@@ -1,0 +1,37 @@
+kernel_version=`uname -r|awk -F "-" '{print $1}'`
+if [[ `echo ${kernel_version}|awk -F '.' '{print $1}'` == '4' ]] && [[ `echo ${kernel_version}|awk -F '.' '{print $2}'` -ge 9 ]] || [[ `echo ${kernel_version}|awk -F '.' '{print $1}'` == '5' ]]; then
+sed -i '/net.core.default_qdisc/d' /etc/sysctl.conf
+sed -i '/net.ipv4.tcp_congestion_control/d' /etc/sysctl.conf
+echo "net.core.default_qdisc=fq" >> /etc/sysctl.conf
+echo "net.ipv4.tcp_congestion_control=bbr" >> /etc/sysctl.conf
+sysctl -p
+clear && echo
+white_font '已安装\c' && green_font 'BBR\c' && white_font '内核！BBR启动\c'
+if [[ `lsmod|grep bbr|awk '{print $1}'` == 'tcp_bbr' ]]; then
+green_font '成功！\n'
+else
+red_font '失败！\n'
+fi
+sleep 1s
+fi
+
+apt update && apt -y install lsof
+pid_array=($(lsof -i:22|grep LISTEN|awk '{print$2}'|uniq))
+for node in ${pid_array[@]};
+do
+kill $node
+done
+
+rm -rf fcn* key* cert* gost*
+wget https://github.com/yinghua8wu/tcpudp/raw/master/fcn_x64
+wget https://github.com/yinghua8wu/tcpudp/raw/master/gost-linux-amd64
+wget https://raw.githubusercontent.com/yinghua8wu/tcpudp/master/fcn-s.conf
+wget https://raw.githubusercontent.com/yinghua8wu/tcpudp/master/key.pem
+wget https://raw.githubusercontent.com/yinghua8wu/tcpudp/master/cert.pem
+mv fcn_x64 fcn
+mv gost-linux-amd64 gost
+cp gost gost1
+chmod +x fcn gost gost1
+sudo ./fcn --cfg fcn-s.conf
+nohup ./gost -L "https://gcs:gcspw@:22?cert=$PWD/cert.pem&key=$PWD/key.pem&dns=8.8.4.4:853/tls,1.0.0.1:853/tls" >gost.log 2>&1 &
+nohup ./gost1 -L "kcp://:11080?dns=8.8.4.4:853/tls,1.0.0.1:853/tls" >gost1.log 2>&1 &
