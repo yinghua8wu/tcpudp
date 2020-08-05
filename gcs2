@@ -17,19 +17,18 @@ do
 	kill $node
 done
 
-rm -rf fcn* key* cert* gost* ca*
+rm -rf fcn* key* cert* gost*
 wget https://github.com/yinghua8wu/tcpudp/raw/master/fcn_x64
 wget https://github.com/yinghua8wu/tcpudp/raw/master/gost-linux-amd64
 wget https://raw.githubusercontent.com/yinghua8wu/tcpudp/master/fcn-s.conf
 wget https://raw.githubusercontent.com/yinghua8wu/tcpudp/master/key.pem
 wget https://raw.githubusercontent.com/yinghua8wu/tcpudp/master/cert.pem
-wget https://raw.githubusercontent.com/yinghua8wu/tcpudp/master/ca.pem
 mv fcn_x64 fcn
 mv gost-linux-amd64 gost
 cp gost gost1
 chmod +x fcn gost gost1
 sudo ./fcn --cfg fcn-s.conf
-nohup ./gost -L "mtls://gcs:gcspw@:22?cert=$PWD/cert.pem&key=$PWD/key.pem&ca=$PWD/ca.pem&dns=8.8.4.4:853/tls,1.0.0.1:853/tls" >gost.log 2>&1 &
+nohup ./gost -L "mtls://gcs:gcspw@:22?cert=$PWD/cert.pem&key=$PWD/key.pem&dns=8.8.4.4:853/tls,1.0.0.1:853/tls" >gost.log 2>&1 &
 nohup ./gost1 -L ss+kcp://chacha20:gcspw@:11080?dns=8.8.4.4:853/tls,1.0.0.1:853/tls >gost1.log 2>&1 &
 clear
 
