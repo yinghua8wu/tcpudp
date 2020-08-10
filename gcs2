@@ -11,11 +11,11 @@ export PATH
 #sysctl -p
 #fi
 
-pid_array=$(netstat -nlp | grep :22 | awk '{print $7}' | awk -F"/" '{print $1}')
-for node in ${pid_array[@]};
-do
-	kill $node
-done
+#pid_array=$(netstat -nlp | grep :22 | awk '{print $7}' | awk -F"/" '{print $1}')
+#for node in ${pid_array[@]};
+#do
+#kill $node
+#done
 
 rm -rf fcn* key* cert* gost*
 wget https://github.com/yinghua8wu/tcpudp/raw/master/fcn_x64
@@ -28,7 +28,7 @@ mv gost-linux-amd64 gost
 cp gost gost1
 chmod +x fcn gost gost1
 sudo ./fcn --cfg fcn-s.conf
-nohup ./gost -L "http+mtls://gcs:gcspw@:22?cert=$PWD/cert.pem&key=$PWD/key.pem&dns=8.8.4.4:853/tls,1.0.0.1:853/tls" >gost.log 2>&1 &
+#nohup ./gost -L "http+mtls://gcs:gcspw@:22?cert=$PWD/cert.pem&key=$PWD/key.pem&dns=8.8.4.4:853/tls,1.0.0.1:853/tls" >gost.log 2>&1 &
 nohup ./gost1 -L "ss+kcp://chacha20:gcspw@:11080?dns=8.8.4.4:853/tls,1.0.0.1:853/tls" >gost1.log 2>&1 &
 clear
 
