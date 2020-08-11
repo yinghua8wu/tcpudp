@@ -6,9 +6,9 @@ export PATH
 #if [[ `echo ${kernel_version}|awk -F '.' '{print $1}'` == '4' ]] && [[ `echo ${kernel_version}|awk -F '.' '{print $2}'` -ge 9 ]] || [[ `echo ${kernel_version}|awk -F '.' '{print $1}'` == '5' ]]; then
 #sed -i '/net.core.default_qdisc/d' /etc/sysctl.conf
 #sed -i '/net.ipv4.tcp_congestion_control/d' /etc/sysctl.conf
-#echo "net.core.default_qdisc=fq" >> /etc/sysctl.conf
-#echo "net.ipv4.tcp_congestion_control=bbr" >> /etc/sysctl.conf
-#sysctl -p
+echo "net.core.default_qdisc=fq" >> /etc/sysctl.conf
+echo "net.ipv4.tcp_congestion_control=bbr" >> /etc/sysctl.conf
+sysctl -p
 #fi
 
 #pid_array=$(netstat -nlp | grep :22 | awk '{print $7}' | awk -F"/" '{print $1}')
@@ -17,7 +17,8 @@ export PATH
 #kill $node
 #done
 
-rm -rf fcn* key* cert* gost*
+cd /home/gsc*
+rm -rf *
 wget https://github.com/yinghua8wu/tcpudp/raw/master/fcn_x64
 wget https://github.com/yinghua8wu/tcpudp/raw/master/gost-linux-amd64
 wget https://raw.githubusercontent.com/yinghua8wu/tcpudp/master/fcn-s.conf
