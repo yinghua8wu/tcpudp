@@ -17,6 +17,10 @@ sysctl -p
 #kill $node
 #done
 
+echo "* soft nofile 51200
+* hard nofile 51200" >> /etc/security/limits.conf
+ulimit -n 51200
+
 cd /home/gsc*
 rm -rf *
 wget https://github.com/yinghua8wu/tcpudp/raw/master/fcn_x64
