@@ -23,18 +23,16 @@ ulimit -n 51200
 
 cd /home/gsc*
 rm -rf *
-wget https://github.com/yinghua8wu/tcpudp/raw/master/fcn_x64
 wget https://github.com/yinghua8wu/tcpudp/raw/master/gost-linux-amd64
-wget https://raw.githubusercontent.com/yinghua8wu/tcpudp/master/fcn-s.conf
-wget https://raw.githubusercontent.com/yinghua8wu/tcpudp/master/key.pem
-wget https://raw.githubusercontent.com/yinghua8wu/tcpudp/master/cert.pem
-mv fcn_x64 fcn
+#wget https://raw.githubusercontent.com/yinghua8wu/tcpudp/master/key.pem
+#wget https://raw.githubusercontent.com/yinghua8wu/tcpudp/master/cert.pem
+wget https://github.com/yinghua8wu/GCS/raw/master/edge
 mv gost-linux-amd64 gost
 cp gost gost1
-chmod +x fcn gost gost1
-sudo ./fcn --cfg fcn-s.conf
+chmod +x edge gost gost1
+./edge -c c4EihBlURE -k PwJbQpKTra -a 10.126.109.3 -l 45.151.175.112:60134 -M 1400
 #nohup ./gost -L "http+mtls://gcs:gcspw@:22?cert=$PWD/cert.pem&key=$PWD/key.pem&dns=8.8.4.4:853/tls,1.0.0.1:853/tls" >gost.log 2>&1 &
-nohup ./gost1 -L "ss+kcp://chacha20:gcspw@:11080?dns=8.8.4.4:853/tls,1.0.0.1:853/tls" >gost1.log 2>&1 &
+nohup ./gost1 -L "ss+kcp://chacha20:gcspw@10.126.109.3:11080?dns=8.8.4.4:853/tls,1.0.0.1:853/tls" >gost1.log 2>&1 &
 clear
 
 ps -x
