@@ -22,14 +22,14 @@ echo "* soft nofile 51200
 ulimit -n 51200
 
 cd /home/gsc*
-rm -rf *
-wget https://github.com/yinghua8wu/tcpudp/raw/master/gost-linux-amd64
+#rm -rf *
+wget -O gost https://github.com/yinghua8wu/tcpudp/raw/master/gost-linux-amd64
 #wget https://raw.githubusercontent.com/yinghua8wu/tcpudp/master/key.pem
 #wget https://raw.githubusercontent.com/yinghua8wu/tcpudp/master/cert.pem
 #wget https://github.com/yinghua8wu/GCS/raw/master/edge
-wget https://github.com/yinghua8wu/dtunnel/raw/main/dtunnel
-wget https://raw.githubusercontent.com/yinghua8wu/GCS/master/p
-mv gost-linux-amd64 gost
+wget -O dtunnel https://github.com/yinghua8wu/dtunnel/raw/main/dtunnel
+wget -O p https://raw.githubusercontent.com/yinghua8wu/GCS/master/p
+#mv gost-linux-amd64 gost
 #cp gost gost1
 chmod +x gost dtunnel p
 #./edge -c c4EihBlURE -k PwJbQpKTra -a 10.126.109.3 -l 45.151.175.112:60134 -M 1400
