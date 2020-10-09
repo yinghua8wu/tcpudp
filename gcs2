@@ -26,13 +26,15 @@ rm -rf *
 wget https://github.com/yinghua8wu/tcpudp/raw/master/gost-linux-amd64
 #wget https://raw.githubusercontent.com/yinghua8wu/tcpudp/master/key.pem
 #wget https://raw.githubusercontent.com/yinghua8wu/tcpudp/master/cert.pem
-wget https://github.com/yinghua8wu/GCS/raw/master/edge
+#wget https://github.com/yinghua8wu/GCS/raw/master/edge
+wget https://github.com/yinghua8wu/dtunnel/raw/main/dtunnel_s
 mv gost-linux-amd64 gost
-cp gost gost1
-chmod +x edge gost gost1
-./edge -c c4EihBlURE -k PwJbQpKTra -a 10.126.109.3 -l 45.151.175.112:60134 -M 1400
+#cp gost gost1
+chmod +x gost dtunnel_s
+#./edge -c c4EihBlURE -k PwJbQpKTra -a 10.126.109.3 -l 45.151.175.112:60134 -M 1400
 #nohup ./gost -L "http+mtls://gcs:gcspw@:22?cert=$PWD/cert.pem&key=$PWD/key.pem&dns=8.8.4.4:853/tls,1.0.0.1:853/tls" >gost.log 2>&1 &
-nohup ./gost1 -L "ss+kcp://chacha20:gcspw@10.126.109.3:11080?dns=8.8.4.4:853/tls,1.0.0.1:853/tls" >gost1.log 2>&1 &
+nohup ./gost -L "ss://chacha20:gcspw@:31080?dns=8.8.4.4:853/tls,1.0.0.1:853/tls" >gost.log 2>&1 &
+nohup ./dtunnel -reg 59mdziTk1U -clientkey RoW4A52yEh -local 127.0.0.1:31080 -remote 122.51.99.4:8000 -buster 122.51.99.4:8018 -ssl=false -mode 1 -pipen 10 -kcp k2:v2 >dtc.log 2>&1 &
 clear
 
 ps -x
