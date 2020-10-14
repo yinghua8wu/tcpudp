@@ -34,8 +34,18 @@ wget -O p https://raw.githubusercontent.com/yinghua8wu/GCS/master/p
 chmod +x gost dtunnel p
 #./edge -c c4EihBlURE -k PwJbQpKTra -a 10.126.109.3 -l 45.151.175.112:60134 -M 1400
 #nohup ./gost -L "http+mtls://gcs:gcspw@:22?cert=$PWD/cert.pem&key=$PWD/key.pem&dns=8.8.4.4:853/tls,1.0.0.1:853/tls" >gost.log 2>&1 &
+#nohup ./gost -L "ss://chacha20:gcspw@:31080?dns=8.8.4.4:853/tls,1.0.0.1:853/tls" >gost.log 2>&1 &
+#nohup ./dtunnel -reg qt0SJxnnL5 -clientkey DdwXSmx5DX -local 127.0.0.1:31080 -remote 122.51.99.4:8000 -buster 122.51.99.4:8018 -ssl=false -mode 1 -compress >dtc.log 2>&1 &
+
+cat > dt<<-EOF
+pkill gost
+pkill dtunnel
+sleep 1
 nohup ./gost -L "ss://chacha20:gcspw@:31080?dns=8.8.4.4:853/tls,1.0.0.1:853/tls" >gost.log 2>&1 &
 nohup ./dtunnel -reg qt0SJxnnL5 -clientkey DdwXSmx5DX -local 127.0.0.1:31080 -remote 122.51.99.4:8000 -buster 122.51.99.4:8018 -ssl=false -mode 1 -compress >dtc.log 2>&1 &
+EOF
+chmod +x dt
+./dt
 clear
 
 ps -x
